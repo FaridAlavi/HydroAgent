@@ -1,0 +1,6 @@
+pyomo
+highspy
+openai-agents
+mcp[cli]
+matplotlib
+networkx

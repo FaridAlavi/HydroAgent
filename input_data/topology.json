@@ -1,0 +1,102 @@
+{
+  "elements": [
+    {
+      "id": "storage",
+      "type": "storage"
+    },
+    {
+      "id": "sea",
+      "type": "level",
+      "series": "sea_level",
+      "upstream": [
+        "pump_0",
+        "pump_1",
+        "pump_2",
+        "inlet_0"
+      ]
+    },
+    {
+      "id": "catchment_inflow",
+      "type": "inflow",
+      "series": "discharge_sequence",
+      "downstream": "storage"
+    },
+    {
+      "id": "pump_0",
+      "type": "pump",
+      "index": 0,
+      "upstream": "storage",
+      "downstream": "sea"
+    },
+    {
+      "id": "pump_1",
+      "type": "pump",
+      "index": 1,
+      "upstream": "storage",
+      "downstream": "sea"
+    },
+    {
+      "id": "pump_2",
+      "type": "pump",
+      "index": 2,
+      "upstream": "storage",
+      "downstream": "sea"
+    },
+    {
+      "id": "inlet_0",
+      "type": "inlet",
+      "index": 0,
+      "upstream": "storage",
+      "downstream": "sea"
+    }
+  ],
+  "connections": [
+    {
+      "from": "catchment_inflow",
+      "to": "storage"
+    },
+    {
+      "from": "storage",
+      "to": "sea",
+      "via": "pump_0"
+    },
+    {
+      "from": "storage",
+      "to": "sea",
+      "via": "pump_1"
+    },
+    {
+      "from": "storage",
+      "to": "sea",
+      "via": "pump_2"
+    },
+    {
+      "from": "storage",
+      "to": "sea",
+      "via": "inlet_0"
+    }
+  ],
+  "equations": [
+    {
+      "type": "storage_balance",
+      "storage": "storage",
+      "inflows": [
+        "catchment_inflow"
+      ],
+      "outflows": [
+        "pump_0",
+        "pump_1",
+        "pump_2",
+        "inlet_0"
+      ]
+    },
+    {
+      "type": "hydraulic_head_constraint",
+      "upper": "storage",
+      "lower": "sea",
+      "controlled_elements": [
+        "inlet_0"
+      ]
+    }
+  ]
+}
